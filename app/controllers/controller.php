@@ -28,6 +28,7 @@ class Controller{
 				
 			}
 		}
+		$this->layout = $this->f3->get('LAYOUT');
         }
         
 	function index()
