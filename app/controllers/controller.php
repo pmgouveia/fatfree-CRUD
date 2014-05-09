@@ -193,7 +193,12 @@ class Controller{
         
         function goback()
         {
-        	$this->f3->reroute($this->f3->get('SESSION.lastroute'));
+        	$referer = $this->f3->get('SERVER.HTTP_REFERER');
+        	if(!empty($referer)){
+        		$this->f3->reroute($referer);
+        	}else{
+        		$this->f3->reroute($this->f3->get('SESSION.lastroute'));
+        	}
         }
         
 	function copyToPost($array){
