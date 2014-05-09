@@ -130,8 +130,6 @@ class html{
 				}
 				$array_attrs['class'] .= " validation-error";
 				
-				// $invalid_fields = $this->f3->get('SESSION.validate.fields');
-				//$validation = "<label class='field-validation-error'>*</label>";
 				if(isset($array_attrs['validate_class'])){
 					$clas = $array_attrs['validate_class'];
 					$validation = "<script>$(document).ready(function(){
@@ -145,7 +143,6 @@ class html{
 				}
 				$array_attrs['class'] .= " validation-error";
 				
-				// $invalid_fields = $this->f3->get('SESSION.validate.fields');
 				$validation = "<label class='field-validation-error'>".\Base::instance()->get('SESSION.validate.fields.'.$name)."</label>";
 			}
 		}
@@ -196,7 +193,6 @@ class html{
 			}
 			$array_attrs['class'] .= " validation-error";
 			
-			// $invalid_fields = $this->f3->get('SESSION.validate.fields');
 			$validation = "<label class='field-validation-error'>".\Base::instance()->get('SESSION.validate.fields.'.$name)."</label>";
 		}
 		if(!isset($array_attrs['value']) && \Base::instance()->exists('POST.'.$name))
@@ -232,25 +228,14 @@ class html{
 		{
 			if($key == "action")
 			{
-				// $val = substr(\Base::instance()->get('uri'),0,-1).$lang_href.$val;
 				$val = \App\Plugins\html::makeLink($val);
 			}
-			// if($key == "validate"){
-			// 	$validate = $val;
-			// 	continue;
-			// }
+			
 			if($key == "id"){
 				$id = $val;
 			}
 			$attrs .= " $key='$val'";
 		}
-		// if($validate && !empty($id))
-		// {
-		// 	echo "<script>
-		// 	$(document).ready(function(){ $('#$id').validate(); });
-		// 	</script>";
-		// }
-		// print_r($attrs);
 		
 		echo "<form role='form' $attrs>";
 	}
@@ -287,25 +272,16 @@ class html{
 	{
 		echo "<div class='pagination'>";
 		echo "<ul>";
-		// <li class="disabled"><a href="#">&laquo;</a></li>
-		// <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
-		// ...
 		
-
-		 for ($i = 1; $i <= $total_pages; $i++){  
+		for ($i = 1; $i <= $total_pages; $i++){  
                         if($i == $page)
                         {
-                                // $color = "style='color:#0099cc;'";
-                                // $color = "style='color:red;'";
                                 echo "<li class='active'>";
                         }else
                         {
-                                // $color = "";
                                 echo "<li>";
                         }
                         
-                        
-                        // echo "<a href='".$url."$i' class='infra_num'><span $color>$i</span></a>";
                         echo "<a href='".$url."$i'>$i</a>";
                         echo "</li>";
                 }
@@ -323,17 +299,12 @@ class html{
 		 for ($i = 1; $i <= $total_pages; $i++){  
                         if($i == $page)
                         {
-                                // $color = "style='color:#0099cc;'";
-                                // $color = "style='color:red;'";
                                 echo "<li class='active'>";
                         }else
                         {
-                                // $color = "";
                                 echo "<li>";
                         }
                         
-                        
-                        // echo "<a href='".$url."$i' class='infra_num'><span $color>$i</span></a>";
                         echo "<a href='".\App\Plugins\html::makeLink($url)."$i'>$i</a>";
                         echo "</li>";
                 }
@@ -357,11 +328,7 @@ class html{
 				$array_attrs['class'] = "";
 			}
 			$array_attrs['class'] .= " validation-error";
-			// if(isset($array_attrs['validate_class'])){
-			// 	$clas = $array_attrs['validate_class'];
-			// 	$validation = "<script>$(document).ready(function(){
-			// 	$('$clas').addClass('validation-error');$('$clas').html(".\Base::instance()->get('SESSION.validate.fields.'.$name).");});</script>";
-			// }
+			
 			$validation = "<span class='field-validation-error'>(".\Base::instance()->get('SESSION.validate.fields.'.$name).")</span>";
 		}
 		
@@ -386,32 +353,6 @@ class html{
 		
 		echo "<input type='checkbox' name='$name' $attrs $checked>$caption $validation ";
 	}
-	/*
-	static function radio($name,$array_attrs){
-		foreach($array_attrs as $key => $val)
-		{
-			if($key == "class"){
-				$attrs .= " $key='$val form-control'";
-			}else if($key == "label"){
-				$label = "<label>$val: </label>";
-			}else{
-				if(!empty($val)){
-					$attrs .= " $key='$val'";
-				}else{
-					$attrs .= " $key ";
-				}
-			}
-			
-		}
-		if(!isset($array_attrs['value']) && \Base::instance()->exists('POST.'.$name))
-		{
-			$value = \Base::instance()->get('POST.'.$name);
-			if($array_attrs['value'] == $value){
-				$attrs .= " checked ";
-			}
-		}
-		echo "$label<input type='$type' name='$name' $attrs>";
-	}*/
 	
 	private static function makeLink($link){
 		$lang = \Base::instance()->get('lang_set');
@@ -425,7 +366,5 @@ class html{
 		return $uri.$lang_href.$link;
 		
 	}
-	
-	
 	
 }

@@ -6,8 +6,8 @@ class Controller{
 	protected $f3;
 	
 	protected $db;
-	// protected $my_db;
-	public $layout = "jgarraio";
+	
+	public $layout = "default";
 	public $title = "";
 	
 	public $controller = "page";
@@ -28,7 +28,6 @@ class Controller{
 				
 			}
 		}
-		// $this->Topmenus = new \App\Models\Topmenus();
         }
         
 	function index()
@@ -104,14 +103,9 @@ class Controller{
         			$hasPermissions = true;
         			break;
         		}
-        		// echo "$controller -> $action AREA RESERVADA<br/>";
         		
         		foreach($this->f3->acl["guest"] as $acl_key => $acl_vals)
         		{
-        			// echo "key: ".$acl_key."<br>";
-        			// echo "<br>val: ";
-        			// print_r($acl_vals);
-        			// echo "<br>";s
         			
         			if(!is_array($acl_vals) && $controller == $acl_vals)
         			{
@@ -127,7 +121,7 @@ class Controller{
         				}
         			}
         		}
-        		// echo "<br>----<br>";
+        		
         		/**
         		if(array_search($controller,$this->f3->acl["guest"]) !== false){
         			if(is_array($this->f3->acl["guest"][array_search($controller,$this->f3->acl["guest"])] ))
@@ -141,11 +135,8 @@ class Controller{
         	
         	if(!$hasPermissions)
         	{
-        		$this->f3->set('SESSION.error_msg',"&Aacute;rea reservada!");
-        		// echo "$controller -> $action AREA RESERVADA";
-        		// die(1);
+        		$this->f3->set('SESSION.error_msg',"Reserved Zone!");
         		$this->f3->reroute("/");
-        		// echo "AREA RESERVADA";
         	}
         	if(strlen($this->title) < 1)
         	{
@@ -167,7 +158,6 @@ class Controller{
 
         function afterroute() {
         	
-        	//GETTING ERROR MSGS
         	if($this->f3->exists('SESSION.msg'))
         	{
         		$this->f3->set('msg',$this->f3->get('SESSION.msg'));
@@ -184,14 +174,9 @@ class Controller{
         		$this->f3->set('menu_right',$this->menu_right);
         	}
         	
-        	// $this->f3->set('html',new App\Plugins\html()) );
                 echo \Template::instance()->render('layouts/'.$this->layout.".htm");
                 
-                // if($this->f3->exists('SESSION.login'))
-        	// {
         	$this->f3->set('SESSION.lastroute',str_replace($this->f3->get('BASE'),"",$this->f3->get('URI')));
-                // $this->f3->set('lang_links',str_replace($lang,$new_lang,$this->f3->get('SESSION.lastroute')));
-                
                 
         }
         
@@ -210,26 +195,6 @@ class Controller{
         	$this->f3->reroute($this->f3->get('SESSION.lastroute'));
         }
         
-        
-        function guardarImagemItem($inputname,$postname = '')
-	{
-		if(empty($postname))
-		{
-			$postname = $inputname;
-		}
-		if(!empty($_FILES[$inputname]['name']))
-		{
-			// print_r($_FILES);
-			$nome_servidor = $this->destinationFolder.uniqid();
-			if(!move_uploaded_file($_FILES[$inputname]['tmp_name'], $nome_servidor)){
-				$this->error_msg("Erro a subir ficheiro...");
-				// $this->f3->goback();
-			}else{
-				$this->f3->set('POST.'.$postname,$nome_servidor);
-			}
-		}
-	}
-	
 	function copyToPost($array){
 		foreach($array as $key => $val){
 			$this->f3->set("POST.$key",$val);

@@ -19,9 +19,7 @@ class Model
         	
         	$this->f3 = \Base::instance();
         	$this->db = new \App\Plugins\db();
-        	// print_r($this->translated_fields);
-        	// $this->translated_fields = array();
-        	// print_r($this->translated_fields);
+        	
         }
         
         public function validate(){
@@ -52,8 +50,6 @@ class Model
         				
         				if($type_v == 'required')
         				{
-        					// print_r($this->f3->get('POST.'.$field));
-        					// die(1);
         					if(strlen($val_v) > 1){
         						$message = $val_v;
         					}else{
@@ -117,21 +113,18 @@ class Model
         					
         					
         				}
-        				
-        				// echo "$field ($type_v) $valid_field <br/> ";
         			}
         			
         			
         			
         		}
         	}
-        	// print_r($this->validation_errors);
+        	
         	if(!empty($this->validation_errors)){
         		$this->f3->set('SESSION.validate.errors',$this->validation_errors);
         		$this->f3->set('SESSION.validate.fields',$failed_fields);
         	}
         	
-        	// print_r($this->validation_errors);
         	return $valid;
         }
         
@@ -142,8 +135,7 @@ class Model
 		}
 		if(!empty($_FILES[$inputname]['name']))
 		{
-			// print_r($_FILES);
-			// $nome_servidor = uniqid();
+			
 			$nome_servidor = $_FILES[$inputname]['name'];
 			if(file_exists($dst_folder.$nome_servidor)){
 				$nome_servidor = uniqid().$nome_servidor;
@@ -153,7 +145,7 @@ class Model
 			}
 			return $nome_servidor;
 		}
-		// return true;
+		
 		return false;
 	}
 	
@@ -166,15 +158,12 @@ class Model
 		}else{
 			$language_set = $this->f3->get('lang_set');
 		}
-		// echo $language_set;
-		// echo $this->f3->get('lang_set');
+		
 		if(is_array($this->translated_fields) && !empty($language_set)){
 			
 			foreach($rows as $key => $row){
 				foreach($row as $_key => $_values){
 					if(in_array($_key,$this->translated_fields)){
-						// echo $_key."<br>";
-						// $rows[$key][$_key] = 'traduzido!';
 						
 						$q = "SELECT field_value FROM i18n_translations 
 						WHERE 
@@ -233,11 +222,8 @@ class Model
 				 	$this->f3->clear('POST.'.$field);
 				}
 			}
-			// return true;
 		}
 		
-		// print_r($this->f3->get('POST'));s
-		// die(1);
 		return $this->db->edit($this->f3->get('POST.id'),$this->tableName);
 		
 	}
@@ -256,8 +242,7 @@ class Model
 	
 	
 	public function save(){
-		// echo "OIIIIIIIIIIIsII  ".$this->tableName;
-		// die(1);
+		
 		if(!$this->beforeSave()){
 			return false;
 		}
@@ -269,7 +254,6 @@ class Model
 			return false;
 		}
 		
-		// die(1);
 		return true;
 		
 	}
@@ -312,7 +296,6 @@ class Model
 	
 	public function paginate($page = 1, $page_views = 5, $order_field = 'created', $order_order = 'DESC',$conds = '',$pageCountSelect = 'id', $select = '*',$showQuery = false)
 	{
-		// return $this->db->allPaginateOrder($this->tableName, $conds, $page, $page_views, $order_field, $order_order, $select,$pageCountSelect,$showQuery );
 		
 		$order_by = "";
 		$limit = "";
@@ -339,19 +322,15 @@ class Model
         	$sql = "select CEIL(count($pageCountSelect)/$page_views) as nr_paginas from $tableName $conds;";
         	if($showQuery){
         		echo $sql;
-        		// die(1);
         	}
-        	// echo $sql;
+        	
         	$total_pages = $this->db->exec($sql);
         	$total_pages = $total_pages[0]['nr_paginas'];
         	
         	$sql = "SELECT $select FROM $tableName $conds $order_by $limit";
         	if($showQuery){
         		echo $sql;
-        		// die(1);
         	}
-        	
-        	// $results =  $this->db->exec($sql);
         	
         	$conds = "$conds $order_by $limit";
         	
@@ -414,7 +393,4 @@ class Model
 		}
 		return $resCombined;
 	}
-	// public function paginate(){
-		// return $this->db->allPaginateOrder($this->tableName,"",$this->f3->get('PARAMS.p1'),10,'ordem','asc')
-	// }
 }

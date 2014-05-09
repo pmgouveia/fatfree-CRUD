@@ -21,7 +21,7 @@ class db
 	}
 	public function all($tableName = '',$conds = '',$select = '*',$showQuery = false) {
 		$q = "SELECT $select FROM $tableName $conds";
-		// return $this->db->exec($q);
+		
 		return $this->getRows($tableName,$conds,$select,$showQuery);
 	}
 	
@@ -36,7 +36,7 @@ class db
 		$this->setTable($tableName);
 		
 		$this->mapper->load(array('id=?',$id));
-		// $this->mapper->copyTo('POST');
+		
 		return $this->mapper;
 	}
 	
@@ -52,7 +52,6 @@ class db
 	public function getRowValue($tableName, $fieldName,$conds = '',$showQuery=false) {
 		
 		$res = $this->getRow($tableName,$conds,$fieldName,$showQuery);
-		// print_r($res);
 		
 		if(!empty($res[$fieldName]))
 		{
@@ -67,10 +66,6 @@ class db
 		
 		if($showQuery){echo $query;}
 		$res = $this->db->exec($query);
-		
-		// if(\Base::instance()->exists('LANG')){
-		// 	$res = $this->translatei18n(\Base::instance()->get('lang_set'),$tableName,$res);
-		// }
 		
 		return $res;
 	}
@@ -107,21 +102,14 @@ class db
 			$resCombined[$result[$key]] = $result[$value];
 		}
 		return $resCombined;
-		// $this->mapper->exec("SELECT * FROM $tableName $conds");
-		// foreach($this->mapper as $kk)
-		// 	{
-		// 	}s
-		// return $this->mapper;
+		
 	}
 	
 	public function getOne($q) {
-		// $this->setTable($tableName);
-		
 		$query = $q;
 		$res = $this->db->exec($query);
 		return $res[0];
-		// $this->mapper->copyTo('POST');
-		// return $this->mapper;
+		
 	}
 	
 	public function edit($id,$tableName='') {
@@ -196,10 +184,6 @@ class db
                 return $new_array;
         }
         
-        // public function paginate($$pagina)
-        // {
-        	// $query = "select CEIL(count(id)/$page_views) as nr_paginas from forum_resposta WHERE forumTopicoId = $topicoId;";
-        // }
         
         public function allPaginateOrder($tableName, $where, $page, $page_views, $order_field, $order_order, $select = '*',$pageCountSelect = 'id',$showQuery = false) 
         {
@@ -239,40 +223,6 @@ class db
         		die(1);
         	}
 		return array("query" => $sql, "page" => $page, "order_field" => $order_field, "order_order" => $order_order,"total_pages" => $total_pages, "pageview" => $page_views,"results" => $this->db->exec($sql));
-	}
-	
-	function translatei18n($lang,$tbl,$results,$field_id = 'id'){
-		
-		/*// print_r($results);s
-		$resulta = array();
-		foreach($results as $key => $result)
-		{
-			echo $key;
-			if(is_array($result)){
-				foreach($result as $_key => $_result)
-				{
-					echo " > ".$_key." >   <br>";
-					// $this->getRowValue('i18n_translations','field_value',"WHERE i18n_translations.table_name like '$tbl' AND i18n_translations.field_name like '$_key' AND i18n_translations.field_id = $field_id ");
-					$q = "SELECT field_value FROM i18n_translations WHERE i18n_translations.table_name like '$tbl' AND i18n_translations.field_name like '$_key' AND i18n_translations.field_id = $field_id ";
-					 $resulta = $this->db->exec($q);
-					 echo $q;
-					 echo "<br><br>";
-					 // echo $q;
-					 // if(!empty($resulta[]))
-					print_r($resulta);
-					// if(!empty($))
-					// $results['']
-				}
-			}else{
-				echo $resulta;
-				// $resulta[] = $this->getRowValue('i18n_translations',$key,"WHERE i18n_translations.table_name like '$tbl' AND i18n_translations.field_name like '$key' AND i18n_translations.field_id = $field_id ");
-			}
-			
-			
-			
-		}
-		// print_r($resulta);
-		die(1);*/
 	}
 
 }
