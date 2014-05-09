@@ -1,6 +1,6 @@
 <?php
 
-$f3=require('app/lib/base.php');
+$f3=require('app/fatfree/lib/base.php');
 $f3->acl = array(
 		"guest" => array("page","newsletter","bo" => array("login","index")), //GUEST USER
 		"auth" => array("page"), //AUTH USER
