@@ -128,15 +128,19 @@ class Model
         	return $valid;
         }
         
-        function saveFile($inputname,$dst_folder = '')
+        function saveFile($inputname,$dst_folder = '',$dst_file = '')
 	{
 		if(empty($dst_folder)){
 			$dst_folder = $this->f3->get('UPLOAD_DIR');
 		}
 		if(!empty($_FILES[$inputname]['name']))
 		{
+			if(empty($dst_file))
+			{
+				$dst_file = $_FILES[$inputname]['name'];
+			}
+			$nome_servidor = $dst_file;
 			
-			$nome_servidor = $_FILES[$inputname]['name'];
 			if(file_exists($dst_folder.$nome_servidor)){
 				$nome_servidor = uniqid().$nome_servidor;
 			}
