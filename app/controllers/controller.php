@@ -142,7 +142,7 @@ class Controller{
         	{
         		$this->title =  $this->f3->get('PARAMS.controller').' '. $this->f3->get('PARAMS.action');
         	}
-        	$this->f3->set('title',$this->title);
+        	
         	
         	$this->f3->set('controller',$controller);
         	$this->f3->set('action',$action);
@@ -173,6 +173,8 @@ class Controller{
         	{
         		$this->f3->set('menu_right',$this->menu_right);
         	}
+        	
+        	$this->f3->set('title',$this->title);
         	
                 echo \Template::instance()->render('layouts/'.$this->layout.".htm");
                 
