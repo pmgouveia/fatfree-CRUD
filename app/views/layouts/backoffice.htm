@@ -1,9 +1,12 @@
 <!DOCTYPE html>
 <html {{ !empty(@lang_set) ? 'lang='.@lang_set : '' }}>
 <head>
-	<title>Site</title>
+	<title>Backoffice</title>
 </head>
 <body>
+	{{!empty(@msg) ? @msg.'<br>' : ''}}
+	{{!empty(@error_msg) ? @error_msg.'<br>' : ''}}
+	
 	{{Template::render(@content)}}
 </body>
 </html>

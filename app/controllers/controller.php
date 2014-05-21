@@ -47,25 +47,24 @@ class Controller{
 			$this->f3->set('POST.login',$this->f3->get('SESSION.login'));
 		}
 		
+		$action = $this->f3->get('PARAMS.action');
+		$controller = $this->f3->get('PARAMS.controller');
 		
-		
-        	$action = $this->f3->get('PARAMS.action');
-        	$controller = $this->f3->get('PARAMS.controller');
-        	
         	if(empty($action)) $action = "index";
         	if(empty($controller)) $controller = "page";
         	
-        	
-        	if(isset($this->translate) && $this->translate){
+        	if($this->f3->exists('LANG') && !isset($this->donttranslate) ){
         		$lang = $this->f3->get('LANG');
-        		if(!empty($lang) && $controller != 'bo'){
+        		if(!empty($lang)){
         			
         			if( $this->f3->exists('PARAMS.lang')){
         				$lang = $this->f3->get('PARAMS.lang');
         			}
-        			$this->f3->set('lang_set',$lang);
+        			// $this->f3->set('lang_set',$lang);
         			
         		}
+        		$this->f3->set('lang_set',$lang);
+        		// }
         	}
         	
         	$hasPermissions = false;
@@ -91,7 +90,7 @@ class Controller{
         		}
         		
         	}
-        	if($this->f3->exists('SESSION.bo.login'))
+        	if($this->f3->exists('SESSION.bo'))
         	{
         		
         		$hasPermissions = true;
@@ -205,5 +204,10 @@ class Controller{
 		foreach($array as $key => $val){
 			$this->f3->set("POST.$key",$val);
 		}
+	}
+	
+	function reroute($controller,$action = 'index')
+	{
+		$this->f3->reroute('/'.$this->f3->get('lang_set').'/'.$controller.'/'.$action);
 	}
 }

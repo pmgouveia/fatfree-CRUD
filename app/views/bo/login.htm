@@ -1,0 +1,5 @@
+{{ App\Plugins\html::startForm(array("method" => "POST")) }}
+	{{ App\Plugins\html::text("login_bo",array("placeholder" => "User","label" => "User")) }}<br/>
+	{{ App\Plugins\html::password("password",array("placeholder" => "password","label" => "Password")) }}
+	{{ App\Plugins\html::submit("Login") }}
+{{ App\Plugins\html::endForm() }}
