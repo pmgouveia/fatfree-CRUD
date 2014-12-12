@@ -36,21 +36,26 @@ $f3->set('encoding','ISO-8859-15');
 
 $f3->route('GET /','App\Controllers\Page->index');
 
-$f3->route('GET /@lang/@controller/@action','App\Controllers\@controller->@action');
-$f3->route('GET /@lang/@controller/@action/@p1','App\Controllers\@controller->@action');
-$f3->route('GET /@lang/@controller/@action/@p1/@p2','App\Controllers\@controller->@action');
-$f3->route('GET /@lang/@controller/@action/@p1/@p2/@p3','App\Controllers\@controller->@action');
-$f3->route('GET /@lang/@controller/@action/@p1/@p2/@p3/@p4','App\Controllers\@controller->@action');
+$lang_str = '';
 
-$f3->route('POST /@lang/@controller/@action','App\Controllers\@controller->@action');
-$f3->route('POST /@lang/@controller/@action/@p1','App\Controllers\@controller->@action');
-$f3->route('POST /@lang/@controller/@action/@p1/@p2','App\Controllers\@controller->@action');
-$f3->route('POST /@lang/@controller/@action/@p1/@p2/@p3','App\Controllers\@controller->@action');
-$f3->route('POST /@lang/@controller/@action/@p1/@p2/@p3/@p4','App\Controllers\@controller->@action');
+if($f3->exists('LANG') || $f3->exists('LANGS')){
+	$lang_str = '@lang/';
+}
 
-$f3->route('GET /@lang/@controller','App\Controllers\@controller->index');
-$f3->route('GET /@lang','App\Controllers\Page->index');
+$f3->route("GET /$lang_str@controller/@action","App\Controllers\@controller->@action");
+$f3->route("GET /$lang_str@controller/@action/@p1","App\Controllers\@controller->@action");
+$f3->route("GET /$lang_str@controller/@action/@p1/@p2","App\Controllers\@controller->@action");
+$f3->route("GET /$lang_str@controller/@action/@p1/@p2/@p3","App\Controllers\@controller->@action");
+$f3->route("GET /$lang_str@controller/@action/@p1/@p2/@p3/@p4","App\Controllers\@controller->@action");
 
+$f3->route("POST /$lang_str@controller/@action","App\Controllers\@controller->@action");
+$f3->route("POST /$lang_str@controller/@action/@p1","App\Controllers\@controller->@action");
+$f3->route("POST /$lang_str@controller/@action/@p1/@p2","App\Controllers\@controller->@action");
+$f3->route("POST /$lang_str@controller/@action/@p1/@p2/@p3","App\Controllers\@controller->@action");
+$f3->route("POST /$lang_str@controller/@action/@p1/@p2/@p3/@p4","App\Controllers\@controller->@action");
+
+$f3->route("GET /$lang_str@controller","App\Controllers\@controller->index");
+$f3->route("GET /$lang_str","App\Controllers\Page->index");
 
 // SQL
 if($f3->exists('db_dns')){

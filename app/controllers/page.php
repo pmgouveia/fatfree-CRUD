@@ -18,7 +18,7 @@ class Page extends Controller{
 	
 	function index()
 	{
-		if(!$this->f3->exists('PARAMS.lang')){
+		if(($this->f3->exists('LANGS') || $this->f3->exists('LANG') ) && !$this->f3->exists('PARAMS.lang')){
 			$this->f3->reroute('/'.$this->f3->get('LANG').'/');
 		}
 		
